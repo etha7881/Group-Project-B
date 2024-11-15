@@ -32,6 +32,3 @@ function draw(){
 }
 	
 //hello yooo
-=======
-
-
