@@ -1,4 +1,5 @@
-let StandardmapButton;
+let StandardmapButton,SataliteButton;
+
 let mapcolor;
 let mapcolorsize;
 let mapcolorgradient;
@@ -12,24 +13,44 @@ function preload() {
 function setup() 
 {
 	createCanvas(1920, 1080);
+	
 	mapColor();
-	drawFire(100,200, 100);
+	drawFire(90,255, 40);
+	drawFire(145,460, 40);
+	drawFire(118,680, 40);
+	drawFire(155,879, 40);
+	drawFire(283,925, 40);
+	drawFire(770,920, 40);
+	drawFire(665,720, 40);
+	drawFire(788,750, 40);
+	drawFire(896,650, 40);
+
 }
 
 function createButtons(){
-StandardmapButton = createButton("Standard Map");
+	const buttonWidth = 100;
+  const buttonHeight = 35;
+  const buttonMargin = 5;
 
-StandardButton.position(20, 1940);
+  StandardButton = createButton('Standard');
+  StandardButton.size(buttonWidth, buttonHeight);
+  StandardButton.position(5,1090);
+
+  SataliteButton = createButton('Satalite');
+  SataliteButton.size(buttonWidth, buttonHeight);
+  SataliteButton.position(110,1090);
+
+
+
+
+
+
 
 }
 function mapColor(){
 
 image(mapcolor, 0, 0);
 
-}
-function draw(){
-	createButtons();
-	
 }
 function drawFire(x, y, size) {
 	noStroke();
@@ -58,6 +79,11 @@ function drawFire(x, y, size) {
 	bezierVertex(x, y - size * 0.8, x + size * 0.3, y - size * 0.3, x, y);
 	endShape(CLOSE);
   }
+function draw(){
+	createButtons();
+
+}
+
   
 	
 //hello yooo
