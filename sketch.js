@@ -24,7 +24,17 @@ function setup()
 	drawFire(665,720, 40);
 	drawFire(788,750, 40);
 	drawFire(896,650, 40);
-
+	drawFire(657,140, 40);
+	drawFire(588,240, 40);
+	drawFire(505,235, 40);
+	drawFire(388,405, 40);
+	drawFire(278,100, 40);
+	drawFire(235,120, 40);
+	drawFire(479,130, 40);
+	drawFire(520,55, 40);
+	drawFire(485,50, 40);
+	drawFire(1243,94, 40);
+	drawFire(1350,935, 40);
 }
 
 function createButtons(){
@@ -46,6 +56,16 @@ function createButtons(){
 
 
 
+}
+function mousePressed() {
+	// Check for shape selection buttons
+	if (dist(mouseX, mouseY, width - 180, 180) < 20) {
+	  selectedShape = 'circle'; // Change selected shape to circle
+	} else if (mouseX > width - 165 && mouseX < width - 145 && mouseY > 170 && mouseY < 190) {
+	  selectedShape = 'triangle'; // Change selected shape to triangle
+	} else if (mouseX > width - 138 && mouseX < width - 118 && mouseY > 170 && mouseY < 190) {
+	  selectedShape = 'square'; // Change selected shape to square
+	}
 }
 function mapColor(){
 
