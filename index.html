@@ -114,7 +114,29 @@
                 { x: 1350, y: 935, size: 40 },
                 { x: 1200, y: 50, size: 40 }
             ];
-
+			let fireTitle = [
+                "Info about Fire 1",
+                "Info about Fire 2",
+                "Info about Fire 3",
+                "Info about Fire 4",
+                "Info about Fire 5",
+                "Info about Fire 6",
+                "Info about Fire 7",
+                "Info about Fire 8",
+                "Info about Fire 9",
+                "Info about Fire 10",
+                "Info about Fire 11",
+                "Info about Fire 12",
+                "Info about Fire 13",
+                "Info about Fire 14",
+                "Info about Fire 15",
+                "Info about Fire 16",
+                "Info about Fire 17",
+                "Info about Fire 18",
+                "Info about Fire 19",
+                "Info about Fire 20",
+                "Info about Fire 21"
+            ];
             let fireInfo = [
                 "Info about Fire 1",
                 "Info about Fire 2",
@@ -238,7 +260,8 @@
             }
 
             function handleClick(index) {
-                infoText = fireInfo[index];
+                infoTitle = fireTitle[index];
+				infoText = fireInfo[index];
                 infoVisible = true;
             }
 
@@ -252,7 +275,9 @@
                     fill(0);
                     textSize(24);
                     textAlign(LEFT, TOP);
-                    text(infoText, 1455, 150);
+                    text(infoTitle, 1455, 100);
+					textSize(16);
+					text(infoText, 1455, 130);
                     textSize(16);
                     text("Click anywhere to close", 1450, 820);
                 }
