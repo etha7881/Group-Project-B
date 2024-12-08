@@ -23,12 +23,40 @@ let firePositions = [
     { x: 1200, y: 50, size: 40 }
 ];
 
+// Info for each fire
+let fireInfo = [
+    "Info about Fire 1",
+    "Info about Fire 2",
+    "Info about Fire 3",
+    "Info about Fire 4",
+    "Info about Fire 5",
+    "Info about Fire 6",
+    "Info about Fire 7",
+    "Info about Fire 8",
+    "Info about Fire 9",
+    "Info about Fire 10",
+    "Info about Fire 11",
+    "Info about Fire 12",
+    "Info about Fire 13",
+    "Info about Fire 14",
+    "Info about Fire 15",
+    "Info about Fire 16",
+    "Info about Fire 17",
+    "Info about Fire 18",
+    "Info about Fire 19",
+    "Info about Fire 20",
+    "Info about Fire 21"
+];
+
+let infoVisible = false;
+let infoText = '';
+
 function preload() {
     mapcolor = loadImage('Map Colored.png');
 }
 
 function setup() {
-    createCanvas(1920, 1080);
+    createCanvas(1420, 1080);
     mapColor();
     drawAllFires();
 }
@@ -38,8 +66,6 @@ function mapColor() {
 }
 
 function drawFire(x, y, size, index) {
- 
-    // Draw the fire
     fill(255, 69, 0);
     beginShape();
     vertex(x, y);
@@ -61,19 +87,19 @@ function drawFire(x, y, size, index) {
     bezierVertex(x, y - size * 0.8, x + size * 0.3, y - size * 0.3, x, y);
     endShape(CLOSE);
 
-	   // Check for mouse hover
-	   let isHovered = mouseX > x - size && mouseX < x + size && mouseY > y - size && mouseY < y;
+    // Check for mouse hover
+    let isHovered = mouseX > x - size && mouseX < x + size && mouseY > y - size && mouseY < y;
 
-	   // Highlight color on hover
-	   noStroke();
-	   if (isHovered) {
-		   fill(255, 255, 0, 150); 
-		   beginShape();
-	   vertex(x, y);
-	   bezierVertex(x - size, y - size, x - size * 0.3, y - size * 1.5, x, y - size * 1.8);
-	   bezierVertex(x + size * 0.3, y - size * 1.5, x + size, y - size, x, y);
-	   endShape(CLOSE); // Draw highlight
-	   }
+    // Highlight color on hover
+    noStroke();
+    if (isHovered) {
+        fill(255, 255, 0, 150); 
+        beginShape();
+        vertex(x, y);
+        bezierVertex(x - size, y - size, x - size * 0.3, y - size * 1.5, x, y - size * 1.8);
+        bezierVertex(x + size * 0.3, y - size * 1.5, x + size, y - size, x, y);
+        endShape(CLOSE); // Draw highlight
+    }
 
     // Handle click
     if (isHovered && mouseIsPressed) {
@@ -89,11 +115,31 @@ function drawAllFires() {
 }
 
 function handleClick(index) {
-    console.log(`Button Fire${index + 1} clicked!`);
+    infoText = fireInfo[index];
+    infoVisible = true; // Show the info sheet
 }
 
 function draw() {
     // Redraw the map and fires to keep the visuals persistent
     mapColor();
     drawAllFires();
+
+    // Draw info sheet if visible
+    if (infoVisible) {
+        fill(255, 255, 255, 200); // Semi-transparent background
+        rect(100, 100, 600, 400, 10); // Info box
+        fill(0);
+        textSize(24);
+        textAlign(LEFT, TOP);
+        text(infoText, 120, 120);
+        textSize(16);
+        text("Click anywhere to close", 120, 350);
+    }
+}
+
+// Close the info sheet when clicked anywhere
+function mousePressed() {
+    if (infoVisible) {
+        infoVisible = false;
+    }
 }
