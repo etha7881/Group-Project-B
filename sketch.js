@@ -105,3 +105,9 @@ function createButtons() {
     SataliteButton.position(110, height - 50);
 }
 
+function Click1 (){
+	if(mouseX>fire1.x && mouseX < fire1.y + fire1.size && mouseY > fire1.y && mouseY < fire1.y + fire1.size && mouseIsPressed){
+	Text('yo',1800,50)
+	
+	}
+}
