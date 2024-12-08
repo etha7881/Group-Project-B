@@ -50,54 +50,90 @@ let fireInfo = [
 
 let infoVisible = false;
 let infoText = '';
+let zoomLevel = 1;
+let zoomIncrement = 0.1;
+let maxZoomLevel = 2; // Maximum zoom level
 
 function preload() {
     mapcolor = loadImage('Map Colored.png');
 }
 
 function setup() {
-    createCanvas(1420, 1080);
+    createCanvas(1920, 1080);
     mapColor();
     drawAllFires();
+
+    // Create Zoom In and Zoom Out buttons
+    createZoomButtons();
+}
+
+function createZoomButtons() {
+    let zoomInButton = createButton('+');
+    zoomInButton.position(20, 20);
+    zoomInButton.mousePressed(zoomIn);
+
+    let zoomOutButton = createButton(' -');
+    zoomOutButton.position(22, 45);
+    zoomOutButton.mousePressed(zoomOut);
+}
+
+function zoomIn() {
+    if (zoomLevel < maxZoomLevel) { // Prevent zooming in beyond the max level
+        zoomLevel += zoomIncrement; // Increase zoom level
+    }
+}
+
+function zoomOut() {
+    if (zoomLevel > 1) { // Prevent zooming out below the original size
+        zoomLevel -= zoomIncrement; // Decrease zoom level
+    }
 }
 
 function mapColor() {
+    push(); // Save the current drawing style settings
+    scale(zoomLevel); // Apply scaling for zoom
     image(mapcolor, 0, 0);
+    pop(); // Restore the previous drawing style settings
 }
 
-function drawFire(x, y, size, index) {
+function drawFire(x, y, baseSize, index) {
+    // Adjust position according to zoom level
+    let adjustedX = x * zoomLevel;
+    let adjustedY = y * zoomLevel;
+    let adjustedSize = baseSize / zoomLevel; // Shrink size proportionally
+
     fill(255, 69, 0);
     beginShape();
-    vertex(x, y);
-    bezierVertex(x - size, y - size, x - size * 0.3, y - size * 1.5, x, y - size * 1.8);
-    bezierVertex(x + size * 0.3, y - size * 1.5, x + size, y - size, x, y);
+    vertex(adjustedX, adjustedY);
+    bezierVertex(adjustedX - adjustedSize, adjustedY - adjustedSize, adjustedX - adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX, adjustedY - adjustedSize * 1.8);
+    bezierVertex(adjustedX + adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX + adjustedSize, adjustedY - adjustedSize, adjustedX, adjustedY);
     endShape(CLOSE);
     
     fill(255, 140, 0);
     beginShape();
-    vertex(x, y);
-    bezierVertex(x - size * 0.6, y - size * 0.6, x - size * 0.2, y - size * 1.2, x, y - size * 1.4);
-    bezierVertex(x + size * 0.2, y - size * 1.2, x + size * 0.6, y - size * 0.6, x, y);
+    vertex(adjustedX, adjustedY);
+    bezierVertex(adjustedX - adjustedSize * 0.6, adjustedY - adjustedSize * 0.6, adjustedX - adjustedSize * 0.2, adjustedY - adjustedSize * 1.2, adjustedX, adjustedY - adjustedSize * 1.4);
+    bezierVertex(adjustedX + adjustedSize * 0.2, adjustedY - adjustedSize * 1.2, adjustedX + adjustedSize * 0.6, adjustedY - adjustedSize * 0.6, adjustedX, adjustedY);
     endShape(CLOSE);
     
     fill(255, 215, 0);
     beginShape();
-    vertex(x, y);
-    bezierVertex(x - size * 0.3, y - size * 0.3, x, y - size * 0.8, x, y - size);
-    bezierVertex(x, y - size * 0.8, x + size * 0.3, y - size * 0.3, x, y);
+    vertex(adjustedX, adjustedY);
+    bezierVertex(adjustedX - adjustedSize * 0.3, adjustedY - adjustedSize * 0.3, adjustedX, adjustedY - adjustedSize * 0.8, adjustedX, adjustedY - adjustedSize);
+    bezierVertex(adjustedX, adjustedY - adjustedSize * 0.8, adjustedX + adjustedSize * 0.3, adjustedY - adjustedSize * 0.3, adjustedX, adjustedY);
     endShape(CLOSE);
 
     // Check for mouse hover
-    let isHovered = mouseX > x - size && mouseX < x + size && mouseY > y - size && mouseY < y;
+    let isHovered = mouseX > adjustedX - adjustedSize && mouseX < adjustedX + adjustedSize && mouseY > adjustedY - adjustedSize && mouseY < adjustedY;
 
     // Highlight color on hover
     noStroke();
     if (isHovered) {
         fill(255, 255, 0, 150); 
         beginShape();
-        vertex(x, y);
-        bezierVertex(x - size, y - size, x - size * 0.3, y - size * 1.5, x, y - size * 1.8);
-        bezierVertex(x + size * 0.3, y - size * 1.5, x + size, y - size, x, y);
+        vertex(adjustedX, adjustedY);
+        bezierVertex(adjustedX - adjustedSize, adjustedY - adjustedSize, adjustedX - adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX, adjustedY - adjustedSize * 1.8);
+        bezierVertex(adjustedX + adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX + adjustedSize, adjustedY - adjustedSize, adjustedX, adjustedY);
         endShape(CLOSE); // Draw highlight
     }
 
@@ -126,14 +162,14 @@ function draw() {
 
     // Draw info sheet if visible
     if (infoVisible) {
-        fill(255, 255, 255, 200); // Semi-transparent background
-        rect(100, 100, 600, 400, 10); // Info box
+        fill(205, 200, 255, 200); // Semi-transparent background
+        rect(1450, 150, 460, 700, 10); // Info box
         fill(0);
         textSize(24);
         textAlign(LEFT, TOP);
-        text(infoText, 120, 120);
+        text(infoText, 1455, 150);
         textSize(16);
-        text("Click anywhere to close", 120, 350);
+        text("Click anywhere to close", 1450, 820);
     }
 }
 
