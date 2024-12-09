@@ -92,6 +92,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
         <script>
             let mapcolor;
+            let mapX = 0, mapY = 0;
+          
             let firePositions = [
                 { x: 90, y: 255, size: 40 },
                 { x: 145, y: 460, size: 40 },
@@ -113,9 +115,9 @@
                 { x: 485, y: 50, size: 40 },
                 { x: 1243, y: 94, size: 40 },
                 { x: 1350, y: 935, size: 40 },
-                { x: 1200, y: 50, size: 40 }
+                
             ];
-			let fireTitle = [
+		let fireTitle = [
                 "PLATEAU Fire",
                 "SILVER CREEK Fire",
                 "DEAD DOG Fire",
@@ -139,10 +141,10 @@
                 
             ];
             let fireInfo = [
-"Info about Fire 2",
-"Info about Fire 2",
-"Info about Fire 3",
-"Info about Fire 4",            
+                "Info about Fire 2",
+                "Info about Fire 2",
+                "Info about Fire 3",
+                "Info about Fire 4",            
                 "Info about Fire 5",
                 "Info about Fire 6",
                 "Info about Fire 7",
@@ -172,7 +174,7 @@
             function preload() {
     mapcolor = loadImage('Map Colored.png');
     satalitemap=loadImage('Satellite map.png')
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         fireImg.push(loadImage(`${i}.png`));
     // i1=loadImage('1.png')
     // i2=loadImage('2.png')
@@ -196,13 +198,14 @@
     // i20=loadImage('20.png')
     
 }}
-// let fireImg=[i1, i2, i3, i4, i5, i6, i7, i8, i9, i10]
-            //i11, i12, i13, i14, i15, i16, i17, i18, i19, i20
+
             function setup() {
                 createCanvas(1920, 1080);  // Ensure the canvas fills the window
                 mapColor();
                 drawAllFires();
                 createZoomButtons();
+                
+                
             }
 
             function createZoomButtons() {
@@ -295,10 +298,18 @@
                 infoImg= fireImg[index];
                 infoVisible = true;
             }
-
+            function theTitle(){
+        //Title 
+        fill('black');
+                textSize(35);
+                text("20 Largest Colorado Wildfires", 1452, 30);
+    }
             function draw() {
                 mapColor();
                 drawAllFires();
+                theTitle();
+               
+                
 
             
 if (infoVisible) {
@@ -341,11 +352,14 @@ if (infoVisible) {
         // Use standard map image
         mapcolor = loadImage('Map Colored.png');
     }
+  
 }
 function returnToHomepage() {
             document.getElementById('homepage').style.display = 'block';
             document.getElementById('mapCanvas').style.display = 'none';
         }
+ 
+            
         </script>
     </div>
 </body>
