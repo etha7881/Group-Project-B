@@ -1,96 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Largest Colorado Wildfires Atlas</title>
-    <style>
-        /* Reset default margin and padding for the page */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
-            height: 100%; /* Ensure the body takes up the full height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-            overflow: hidden; /* Prevent scrolling */
-        }
-
-        /* Homepage styles */
-        #homepage {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh; /* Full height of the viewport */
-            width: 100vw; /* Full width of the viewport */
-            text-align: center;
-            position: absolute;
-            z-index: 10;
-            background-color: white; /* White background for homepage */
-            padding: 20px; /* Optional: Adds padding to the content */
-        }
-
-        .title {
-            font-size: 48px;
-            color: #3498db;
-            margin-bottom: 40px;
-        }
-
-        /* Container for buttons */
-        .button-container {
-            display: flex;
-            justify-content: space-evenly; /* Align buttons to the left and right */
-            width: 80%; /* Take up most of the available space */
-        }
-
-        .btn {
-            padding: 20px 30px;
-            font-size: 24px;
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            width: 45%; /* Buttons take up equal width */
-        }
-
-        .btn:hover {
-            background-color: #27ae60;
-        }
-
-        #mapCanvas {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Homepage content -->
-    <div id="homepage">
-        <div class="title">Largest Colorado Wildfires Atlas</div>
-        <!-- Button container with two buttons -->
-        <div class="button-container">
-            <button class="btn" onclick="showMap()">Satellite Map</button>
-            <button class="btn" onclick="showMap()">Standard Map</button>
-        </div>
-    </div>
-
-    <!-- Map canvas hidden initially -->
-    <div id="mapCanvas">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-        <script>
-            let mapcolor;
+let mapcolor;
             let firePositions = [
                 { x: 90, y: 255, size: 40 },
                 { x: 145, y: 460, size: 40 },
@@ -114,12 +22,35 @@
                 { x: 1350, y: 935, size: 40 },
                 { x: 1200, y: 50, size: 40 }
             ];
-
+			let fireTitle = [
+                "PLATEAU Fire",
+                "SILVER CREEK Fire",
+                "DEAD DOG Fire",
+                "BADGER HOLE Fire",
+                "PINE GULTCH Fire",
+                "GRIZZLY CREEK Fire",
+                "MIDDLE FORK Fire",
+                "MM 117",
+                "BEAVER CREEK Fire",
+                "HAYDEN PASS Fire",
+                "SPRING CREEK Fire",
+                "416 AND BURRO COMPLEX Fire",
+                "RYAN Fire",
+                "EAST TROUBLESOME Fire",
+                "BULL DRAW Fire",
+                "JUNKINS",
+                "CAMERON PEAK FIRE",
+                "DIVIDE Fire",
+                "LOGAN Fire",
+                "ALKALI Fire",
+                
+            ];
             let fireInfo = [
-                "Info about Fire 1",
-                "Info about Fire 2",
-                "Info about Fire 3",
-                "Info about Fire 4",
+                "Containment Date/Time: 2018-09-06 23:00:00 Control Date/Time: 2018-10-09 14:00:00 Incident Size: 19,634 acres Estimated Cost To Date: 3,801,000 Fire Behavior General: Minimal Fire Cause: Natural Fire Discovery Date/Time: 2018-07-22 21:18:00 Fire Out Date/Time: 2018-10-17 16:00:00 Primary Fuel Model: Timber (Litter and Understory) Secondary Fuel Model: Timber (Grass and Understory)",
+                "Details: Increased fire activity was reported over two days, with the fire remaining entirely within the Sarvis Creek Wilderness   Containment Date/Time: 2018-10-24 19:30:00   Control Date/Time: 2018-11-06 15:30:00   Incident Size: 20,120 acres   Estimated Cost To Date: $28,120,000   Fire Behavior General: Minimal   Fire Cause: Natural   Fire Discovery Date/Time: 2018-07-19 20:33:00   Fire Out Date/Time: 2018-12-13 19:30:00   Primary Fuel Model: Timber (Litter and Understory)   Secondary Fuel Model: Brush (2 feet)",
+                "Details: This fire, which burned nearly 18,000 acres near Rangely, was determined to be human-caused   Containment Date/Time: 2017-06-19 02:00:00   Control Date/Time: 2017-07-16 17:00:00   Incident Size: 18,804 acres   Estimated Cost To Date: $0   Fire Behavior General: Minimal   Fire Cause: Human   Fire Discovery Date/Time: 2017-06-11 20:48:00   Fire Out Date/Time: 2017-07-26 16:00:00   Primary Fuel Model: Brush (2 feet)   Secondary Fuel Model: Chaparral (6 feet)",
+                "Details: Originating in Baca County, this fire burned approximately 50,858 acres across Colorado and Kansas, with multiple homes, outbuildings, livestock, and infrastructure losses reported Containment Date/Time: N/A Control Date/Time: N/A Incident Size: 50,671 acres Estimated Cost To Date: 106,036 Fire Behavior General: Extreme Fire Cause: Human Fire Discovery Date/Time: 2018-04-18 02:49:00 Fire Out Date/Time: 2018-04-21 00:00:00 Primary Fuel Model: Short Grass (1 foot) Secondary Fuel Model: Tall Grass (2.5 feet)",
+,
                 "Info about Fire 5",
                 "Info about Fire 6",
                 "Info about Fire 7",
@@ -136,7 +67,7 @@
                 "Info about Fire 18",
                 "Info about Fire 19",
                 "Info about Fire 20",
-                "Info about Fire 21"
+                
             ];
 
             let infoVisible = false;
@@ -146,12 +77,32 @@
             let maxZoomLevel = 2;
 
             function preload() {
-                mapcolor = loadImage('Map Colored.png');
-				satalitemap=loadImage('Satalite map.png')
-            }
+    mapcolor = loadImage('Map Colored.png');
+    satalitemap=loadImage('Satalite map.png')
+    i1=loadImage('1.png')
+    i2=loadImage('2.png')
+    i3=loadImage('3.png')
+    i4=loadImage('4.png')
+    i5=loadImage('5.png')
+    i6=loadImage('6.png')
+    i7=loadImage('7.png')
+    i8=loadImage('8.png')
+    i9=loadImage('9.png')
+    i10=loadImage('10.png')
+    i11=loadImage('11.png')
+    i12=loadImage('12.png')
+    i13=loadImage('13.png')
+    i14=loadImage('14.png')
+    i15=loadImage('15.png')
+    i16=loadImage('16.png')
+    i17=loadImage('17.png')
+    i18=loadImage('18.png')
+    i19=loadImage('19.png')
+    i20=loadImage('20.png')
+}
 
             function setup() {
-                createCanvas(1920, 1080);  // Ensure the canvas fills the window
+                createCanvas(windowWidth, windowHeight);  // Ensure the canvas fills the window
                 mapColor();
                 drawAllFires();
                 createZoomButtons();
@@ -238,7 +189,8 @@
             }
 
             function handleClick(index) {
-                infoText = fireInfo[index];
+                infoTitle = fireTitle[index];
+				infoText = fireInfo[index];
                 infoVisible = true;
             }
 
@@ -246,16 +198,19 @@
                 mapColor();
                 drawAllFires();
 
-                if (infoVisible) {
-                    fill(205, 200, 255, 240);
-                    rect(1450, 100, 460, 850, 10);
-                    fill(0);
-                    textSize(24);
-                    textAlign(LEFT, TOP);
-                    text(infoText, 1455, 150);
-                    textSize(16);
-                    text("Click anywhere to close", 1450, 820);
-                }
+            
+if (infoVisible) {
+    fill(205, 200, 255, 240);
+    rect(1450, 100, 460, 850, 10);
+    fill(0);
+    textSize(24);
+    textAlign(LEFT, TOP);
+    text(infoTitle, 1455, 100);
+    textSize(16);
+    text(infoText, 1455, 130, 330);
+    textSize(16);
+    text("Click anywhere to close", 1450, 820);
+}
             }
 
             function mousePressed() {
@@ -269,158 +224,3 @@
                 document.getElementById('homepage').style.display = 'none';
                 document.getElementById('mapCanvas').style.display = 'block';
             }
-        </script>
-    </div>
-</body>
-</html>
-
-}
-
-}
-fire 
-function setup() {
-	createCanvas(400, 400);
-	noLoop(); // Stops draw loop to keep it static
-  }
-  
-  function draw() {
-	background(30); // Dark background for contrast
-	
-	drawFire(200, 300, 80); // Draw fire symbol at (200, 300) with size 80
-  }
-  
-  function drawFire(x, y, size) {
-	noStroke();
-  
-	// Draw the outer flame (red)
-	fill(255, 69, 0); // Red-orange color
-	beginShape();
-	vertex(x, y);
-	bezierVertex(x - size, y - size, x - size * 0.3, y - size * 1.5, x, y - size * 1.8);
-	bezierVertex(x + size * 0.3, y - size * 1.5, x + size, y - size, x, y);
-	endShape(CLOSE);
-  
-	// Draw the inner flame (orange)
-	fill(255, 140, 0); // Orange color
-	beginShape();
-	vertex(x, y);
-	bezierVertex(x - size * 0.6, y - size * 0.6, x - size * 0.2, y - size * 1.2, x, y - size * 1.4);
-	bezierVertex(x + size * 0.2, y - size * 1.2, x + size * 0.6, y - size * 0.6, x, y);
-	endShape(CLOSE);
-  
-	// Draw the core flame (yellow)
-	fill(255, 215, 0); // Yellow color
-	beginShape();
-	vertex(x, y);
-	bezierVertex(x - size * 0.3, y - size * 0.3, x, y - size * 0.8, x, y - size);
-	bezierVertex(x, y - size * 0.8, x + size * 0.3, y - size * 0.3, x, y);
-	endShape(CLOSE);
-  }
-<<<<<<< HEAD
-DXunan
-=======
-//hello yooo
-=======
-
-
->>>>>>> e0a04e53d3aa975030dd463d79169db2b76888bc
->>>>>>> Stashed changes
-=======
-
-function zoomOut() {
-    if (zoomLevel > 1) { // Prevent zooming out below the original size
-        zoomLevel -= zoomIncrement; // Decrease zoom level
-    }
-}
-
-function mapColor() {
-    push(); // Save the current drawing style settings
-    scale(zoomLevel); // Apply scaling for zoom
-    image(mapcolor, 0, 0);
-    pop(); // Restore the previous drawing style settings
-}
-
-function drawFire(x, y, baseSize, index) {
-    // Adjust position according to zoom level
-    let adjustedX = x * zoomLevel;
-    let adjustedY = y * zoomLevel;
-    let adjustedSize = baseSize / zoomLevel; // Shrink size proportionally
-
-    fill(255, 69, 0);
-    beginShape();
-    vertex(adjustedX, adjustedY);
-    bezierVertex(adjustedX - adjustedSize, adjustedY - adjustedSize, adjustedX - adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX, adjustedY - adjustedSize * 1.8);
-    bezierVertex(adjustedX + adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX + adjustedSize, adjustedY - adjustedSize, adjustedX, adjustedY);
-    endShape(CLOSE);
-    
-    fill(255, 140, 0);
-    beginShape();
-    vertex(adjustedX, adjustedY);
-    bezierVertex(adjustedX - adjustedSize * 0.6, adjustedY - adjustedSize * 0.6, adjustedX - adjustedSize * 0.2, adjustedY - adjustedSize * 1.2, adjustedX, adjustedY - adjustedSize * 1.4);
-    bezierVertex(adjustedX + adjustedSize * 0.2, adjustedY - adjustedSize * 1.2, adjustedX + adjustedSize * 0.6, adjustedY - adjustedSize * 0.6, adjustedX, adjustedY);
-    endShape(CLOSE);
-    
-    fill(255, 215, 0);
-    beginShape();
-    vertex(adjustedX, adjustedY);
-    bezierVertex(adjustedX - adjustedSize * 0.3, adjustedY - adjustedSize * 0.3, adjustedX, adjustedY - adjustedSize * 0.8, adjustedX, adjustedY - adjustedSize);
-    bezierVertex(adjustedX, adjustedY - adjustedSize * 0.8, adjustedX + adjustedSize * 0.3, adjustedY - adjustedSize * 0.3, adjustedX, adjustedY);
-    endShape(CLOSE);
-
-    // Check for mouse hover
-    let isHovered = mouseX > adjustedX - adjustedSize && mouseX < adjustedX + adjustedSize && mouseY > adjustedY - adjustedSize && mouseY < adjustedY;
-
-    // Highlight color on hover
-    noStroke();
-    if (isHovered) {
-        fill(255, 255, 0, 150); 
-        beginShape();
-        vertex(adjustedX, adjustedY);
-        bezierVertex(adjustedX - adjustedSize, adjustedY - adjustedSize, adjustedX - adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX, adjustedY - adjustedSize * 1.8);
-        bezierVertex(adjustedX + adjustedSize * 0.3, adjustedY - adjustedSize * 1.5, adjustedX + adjustedSize, adjustedY - adjustedSize, adjustedX, adjustedY);
-        endShape(CLOSE); // Draw highlight
-    }
-
-    // Handle click
-    if (isHovered && mouseIsPressed) {
-        handleClick(index);
-    }
-}
-
-function drawAllFires() {
-    for (let i = 0; i < firePositions.length; i++) {
-        let fire = firePositions[i];
-        drawFire(fire.x, fire.y, fire.size, i);
-    }
-}
-
-function handleClick(index) {
-    infoText = fireInfo[index];
-    infoVisible = true; // Show the info sheet
-}
-
-function draw() {
-    // Redraw the map and fires to keep the visuals persistent
-    mapColor();
-    drawAllFires();
-
-    // Draw info sheet if visible
-    if (infoVisible) {
-        fill(205, 200, 255, 200); // Semi-transparent background
-        rect(1450, 150, 460, 700, 10); // Info box
-        fill(0);
-        textSize(24);
-        textAlign(LEFT, TOP);
-        text(infoText, 1455, 150);
-        textSize(16);
-        text("Click anywhere to close", 1450, 820);
-    }
-}
-
-// Close the info sheet when clicked anywhere
-function mousePressed() {
-    if (infoVisible) {
-        infoVisible = false;
-    }
-}
->>>>>>> 5048f380c0475647d7245cc5e190b1d3f50ba4c1
