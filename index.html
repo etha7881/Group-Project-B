@@ -81,13 +81,14 @@
         <div class="title">Largest Colorado Wildfires Atlas</div>
         <!-- Button container with two buttons -->
         <div class="button-container">
-            <button class="btn" onclick="showMap()">Satellite Map</button>
-            <button class="btn" onclick="showMap()">Standard Map</button>
+            <button class="btn" onclick="showMap(true)">Satellite Map</button>
+    <button class="btn" onclick="showMap(false)">Standard Map</button>
         </div>
     </div>
 
     <!-- Map canvas hidden initially -->
     <div id="mapCanvas">
+        <button id="returnHome" style="position: absolute; top: 20px; left: 20px; padding: 10px 20px; font-size: 16px; background-color: #e74c3c; color: white; border: none; border-radius: 8px; cursor: pointer; z-index: 100;" onclick="returnToHomepage()">Return to Homepage</button>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
         <script>
             let mapcolor;
@@ -170,7 +171,7 @@
             fireImg = []
             function preload() {
     mapcolor = loadImage('Map Colored.png');
-    satalitemap=loadImage('Satalite map.png')
+    satalitemap=loadImage('Satellite map.png')
     for (let i = 1; i <= 10; i++) {
         fireImg.push(loadImage(`${i}.png`));
     // i1=loadImage('1.png')
@@ -198,20 +199,24 @@
 // let fireImg=[i1, i2, i3, i4, i5, i6, i7, i8, i9, i10]
             //i11, i12, i13, i14, i15, i16, i17, i18, i19, i20
             function setup() {
-                createCanvas(windowWidth, windowHeight);  // Ensure the canvas fills the window
+                createCanvas(1920, 1080);  // Ensure the canvas fills the window
                 mapColor();
                 drawAllFires();
                 createZoomButtons();
             }
 
             function createZoomButtons() {
-				
+    const buttonWidth = 50;
+  const buttonHeight = 50;
+  
                 let zoomInButton = createButton('+');
-                zoomInButton.position(20, 20);
+                zoomInButton.position(160, 1070);
+                zoomInButton.size(buttonWidth, buttonHeight);
                 zoomInButton.mousePressed(zoomIn);
 
                 let zoomOutButton = createButton('-');
-                zoomOutButton.position(22, 45);
+                zoomOutButton.position(160, 1120);
+                zoomOutButton.size(buttonWidth, buttonHeight);
                 zoomOutButton.mousePressed(zoomOut);
             }
 
@@ -322,10 +327,25 @@ if (infoVisible) {
             }
 
             // Show the map after homepage button is clicked
-            function showMap() {
-                document.getElementById('homepage').style.display = 'none';
-                document.getElementById('mapCanvas').style.display = 'block';
-            }
+            function showMap(isSatellite) {
+    document.getElementById('homepage').style.display = 'none';
+    document.getElementById('mapCanvas').style.display = 'block';
+
+    // Boolean condition for the map type
+    if (isSatellite) {
+        console.log('Displaying Satellite Map');
+        // Use satellite map image
+        mapcolor = satalitemap;
+    } else {
+        console.log('Displaying Standard Map');
+        // Use standard map image
+        mapcolor = loadImage('Map Colored.png');
+    }
+}
+function returnToHomepage() {
+            document.getElementById('homepage').style.display = 'block';
+            document.getElementById('mapCanvas').style.display = 'none';
+        }
         </script>
     </div>
 </body>
