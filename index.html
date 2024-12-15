@@ -291,7 +291,7 @@
                     drawFire(fire.x, fire.y, fire.size, i);
                 }
             }
-
+//Pulls up fire index data
             function handleClick(index) {
                 infoTitle = fireTitle[index];
 				infoText = fireInfo[index];
@@ -302,7 +302,7 @@
         //Title 
         fill('black');
                 textSize(35);
-                text("20 Largest Colorado Wildfires", 1452, 30);
+                text("20 Largest Colorado Wildfires", 1450, 30);
     }
             function draw() {
                 mapColor();
@@ -311,7 +311,7 @@
                
                 
 
-            
+     // Calling index data to view pannel       
 if (infoVisible) {
   
     fill(205, 200, 255, 240);
@@ -330,7 +330,7 @@ if (infoVisible) {
                 }
 }
             }
-
+//Button Click on Fire
             function mousePressed() {
                 if (infoVisible) {
                     infoVisible = false;
@@ -354,6 +354,7 @@ if (infoVisible) {
     }
   
 }
+//Return to homepage functionality
 function returnToHomepage() {
             document.getElementById('homepage').style.display = 'block';
             document.getElementById('mapCanvas').style.display = 'none';

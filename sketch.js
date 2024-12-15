@@ -119,7 +119,7 @@ function setup() {
     
     
 }
-
+//zoom functionality and button design
 function createZoomButtons() {
 const buttonWidth = 50;
 const buttonHeight = 50;
@@ -134,26 +134,26 @@ const buttonHeight = 50;
     zoomOutButton.size(buttonWidth, buttonHeight);
     zoomOutButton.mousePressed(zoomOut);
 }
-
+//zoom in
 function zoomIn() {
     if (zoomLevel < maxZoomLevel) {
         zoomLevel += zoomIncrement;
     }
 }
-
+//zoom out
 function zoomOut() {
     if (zoomLevel > 1) {
         zoomLevel -= zoomIncrement;
     }
 }
-
+//Standard Map 
 function mapColor() {
     push();
     scale(zoomLevel);
     image(mapcolor, 0, 0);
     pop();
 }
-
+//fire logos
 function drawFire(x, y, baseSize, index) {
     let adjustedX = x * zoomLevel;
     let adjustedY = y * zoomLevel;
